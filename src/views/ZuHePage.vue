@@ -16,6 +16,7 @@
 </template>
 <script>
   import {PopupPicker, XInput, Group, Cell, XButton, XHeader} from "vux";
+  import storage from '../sessionStore'
 
   export default {
     components: {
@@ -35,11 +36,22 @@
     },
     data() {
       return {
-        sloanMoney: 10000,
-        rate: 25,
+        sloanMoney: storage.get('sloanMoney') || "",
+        rate: storage.get('rate') || "",
         sloanYearsList: [],
-        sloanYear: ["2年(24期)"],
+        sloanYear: storage.get('sloanYear') ? [storage.get('sloanYear')] : ["2年(24期)"],
       };
+    },
+    watch: {
+      sloanMoney(value) {
+        storage.set('sloanMoney', value)
+      },
+      rate(value) {
+        storage.set('rate', value)
+      },
+      sloanYear(value) {
+        storage.set('sloanYear', value)
+      }
     },
     computed: {
       syears() {
