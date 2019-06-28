@@ -1,38 +1,30 @@
 <template>
   <div class="main-layer outerLayerDiv">
-    <x-header>计算结果</x-header>
+    <x-header>车贷计算器</x-header>
     <div class="content">
-      <canvas ref="totalCanvas"></canvas>
+      <!--<canvas ref="totalCanvas"></canvas>-->
       <flexbox>
         <flexbox-item>
-          <div class="name"><span style="background-color: #2FC25B"></span>贷款金额：</div>
+          <div class="name">贷款金额：</div>
         </flexbox-item>
         <flexbox-item align="right">
-          <div class="flex-demo">{{money|formatCurrency}}元</div>
+          <div class="flex-demo"><span>{{money|formatCurrency}}</span>元</div>
         </flexbox-item>
       </flexbox>
       <flexbox>
         <flexbox-item>
-          <div class="name">真实率利：</div>
+          <div class="name">贷款期限：</div>
         </flexbox-item>
         <flexbox-item align="right">
-          <div class="flex-demo">{{realRate}}%</div>
+          <div class="flex-demo"><span>{{month}}</span>期</div>
         </flexbox-item>
       </flexbox>
       <flexbox>
         <flexbox-item>
-          <div class="name">总率利：</div>
+          <div class="name">综合服务费：</div>
         </flexbox-item>
         <flexbox-item align="right">
-          <div class="flex-demo">{{totalRate}}%</div>
-        </flexbox-item>
-      </flexbox>
-      <flexbox>
-        <flexbox-item>
-          <div class="name">真实分期本金：</div>
-        </flexbox-item>
-        <flexbox-item align="right">
-          <div class="flex-demo">{{realSplitAmount|formatCurrency}}元</div>
+          <div class="flex-demo"><span>{{comCost|formatCurrency}}</span>元</div>
         </flexbox-item>
       </flexbox>
       <flexbox>
@@ -40,23 +32,15 @@
           <div class="name">分期本金：</div>
         </flexbox-item>
         <flexbox-item align="right">
-          <div class="flex-demo">{{splitAmount|formatCurrency}}元</div>
+          <div class="flex-demo"><span>{{splitAmount|formatCurrency}}</span>元</div>
         </flexbox-item>
       </flexbox>
       <flexbox>
         <flexbox-item>
-          <div class="name">每月还款本金：</div>
+          <div class="name">银行手续费：</div>
         </flexbox-item>
         <flexbox-item align="right">
-          <div class="flex-demo">{{monthRepayAmount|formatCurrency}}元</div>
-        </flexbox-item>
-      </flexbox>
-      <flexbox>
-        <flexbox-item>
-          <div class="name">每月还款利息：</div>
-        </flexbox-item>
-        <flexbox-item align="right">
-          <div class="flex-demo">{{monthRepayInterest|formatCurrency}}元</div>
+          <div class="flex-demo"><span>{{bankCost|formatCurrency}}</span>元</div>
         </flexbox-item>
       </flexbox>
       <flexbox>
@@ -64,31 +48,58 @@
           <div class="name">总还款：</div>
         </flexbox-item>
         <flexbox-item align="right">
-          <div class="flex-demo">{{totalRepay|formatCurrency}}元</div>
+          <div class="flex-demo"><span>{{totalRepay|formatCurrency}}</span>元</div>
         </flexbox-item>
       </flexbox>
-      <flexbox>
-        <flexbox-item>
-          <div class="name"><span style="background-color: #FACC14"></span>银行手续费：</div>
-        </flexbox-item>
-        <flexbox-item align="right">
-          <div class="flex-demo">{{bankCost|formatCurrency}}元</div>
-        </flexbox-item>
-      </flexbox>
-      <flexbox>
-        <flexbox-item>
-          <div class="name"><span style="background-color: #1890FF"></span>综合服务费：</div>
-        </flexbox-item>
-        <flexbox-item align="right">
-          <div class="flex-demo">{{comCost|formatCurrency}}元</div>
-        </flexbox-item>
-      </flexbox>
+      <!--<flexbox>-->
+        <!--<flexbox-item>-->
+          <!--<div class="name">真实率利：</div>-->
+        <!--</flexbox-item>-->
+        <!--<flexbox-item align="right">-->
+          <!--<div class="flex-demo">{{realRate}}%</div>-->
+        <!--</flexbox-item>-->
+      <!--</flexbox>-->
+      <!--<flexbox>-->
+        <!--<flexbox-item>-->
+          <!--<div class="name">总率利：</div>-->
+        <!--</flexbox-item>-->
+        <!--<flexbox-item align="right">-->
+          <!--<div class="flex-demo">{{totalRate}}%</div>-->
+        <!--</flexbox-item>-->
+      <!--</flexbox>-->
+      <!--<flexbox>-->
+        <!--<flexbox-item>-->
+          <!--<div class="name">真实分期本金：</div>-->
+        <!--</flexbox-item>-->
+        <!--<flexbox-item align="right">-->
+          <!--<div class="flex-demo">{{realSplitAmount|formatCurrency}}元</div>-->
+        <!--</flexbox-item>-->
+      <!--</flexbox>-->
+
+      <!--<flexbox>-->
+        <!--<flexbox-item>-->
+          <!--<div class="name">每月还款本金：</div>-->
+        <!--</flexbox-item>-->
+        <!--<flexbox-item align="right">-->
+          <!--<div class="flex-demo">{{monthRepayAmount|formatCurrency}}元</div>-->
+        <!--</flexbox-item>-->
+      <!--</flexbox>-->
+      <!--<flexbox>-->
+        <!--<flexbox-item>-->
+          <!--<div class="name">每月还款利息：</div>-->
+        <!--</flexbox-item>-->
+        <!--<flexbox-item align="right">-->
+          <!--<div class="flex-demo">{{monthRepayInterest|formatCurrency}}元</div>-->
+        <!--</flexbox-item>-->
+      <!--</flexbox>-->
+
+
       <flexbox>
         <flexbox-item>
           <div class="name">每月还款：</div>
         </flexbox-item>
         <flexbox-item align="right">
-          <div class="flex-demo">{{monthRepay|formatCurrency}}元</div>
+          <div class="flex-demo"><span>{{monthRepay|formatCurrency}}</span>元</div>
         </flexbox-item>
       </flexbox>
       <flexbox>
@@ -96,7 +107,7 @@
           <div class="name">首月多还：</div>
         </flexbox-item>
         <flexbox-item align="right">
-          <div class="flex-demo">{{firstMonthRepay|formatCurrency}}元</div>
+          <div class="flex-demo"><span>{{firstMonthRepay|formatCurrency}}</span>元</div>
         </flexbox-item>
       </flexbox>
       <!--<p class="disctext" style="text-align:center">以上结果仅供参考</p>-->
@@ -106,10 +117,11 @@
 </template>
 <script>
   import {Flexbox, FlexboxItem, XButton, XHeader} from 'vux'
-  import {Ring, setArea} from '../chart'
+  //import {Ring, setArea} from '../chart'
   import {formatCurrency} from '../unilt'
 
   export default {
+
     components: {
       Flexbox,
       FlexboxItem,
@@ -131,14 +143,14 @@
       this.rate = Number(this.$route.query.rate);
     },
     mounted() {
-      const totalArr = [{text: '贷款金额', color: '#2FC25B', val: (this.money / this.totalRepay)*100}, {
-        text: '银行手续费',
-        color: '#FACC14',
-        val: (this.bankCost / this.totalRepay)*100
-      }, {text: '综合服务费', color: '#1890FF', val: (this.comCost / this.totalRepay)*100}];
-      let ctx = setArea(this.$refs['totalCanvas'], 120, 120);//设置宽高倍数
-      let ring = new Ring(55, 20, {title: `总还款${formatCurrency(this.totalRepay)}元`, bgColor: '#fff'}, "butt");
-      ring.drawRing(ctx, 1.5 * Math.PI, totalArr, 70, 70);
+      // const totalArr = [{text: '贷款金额', color: '#2FC25B', val: (this.money / this.totalRepay)*100}, {
+      //   text: '银行手续费',
+      //   color: '#FACC14',
+      //   val: (this.bankCost / this.totalRepay)*100
+      // }, {text: '综合服务费', color: '#1890FF', val: (this.comCost / this.totalRepay)*100}];
+      // let ctx = setArea(this.$refs['totalCanvas'], 120, 120);//设置宽高倍数
+      // let ring = new Ring(55, 20, {title: `总还款${formatCurrency(this.totalRepay)}元`, bgColor: '#fff'}, "butt");
+      // ring.drawRing(ctx, 1.5 * Math.PI, totalArr, 70, 70);
     },
     filters: {
       formatCurrency

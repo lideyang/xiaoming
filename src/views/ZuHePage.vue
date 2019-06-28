@@ -49,17 +49,7 @@
       gyears() {
         const month = this.gloanYear[0].match(/\((\S*)\)/);
         return parseInt(month[1].substr(0, month[1].length - 1) / 12);
-      },
-      sbaseRate() {
-        return .25
-      },
-      gbaseRate() {
-        if (this.gyears <= 5) {
-          return 2.75 / 100
-        }
-
-        return 3.25 / 100
-      },
+      }
     },
     methods: {
       caculateLoan() {
@@ -73,14 +63,6 @@
             rate: this.rate
           }
         });
-      },
-      sRateSubmit(showValue, actRate) {
-        this.sshowRate = showValue;
-        this.sactRate = actRate
-      },
-      gRateSubmit(showValue, actRate) {
-        this.gshowRate = showValue;
-        this.gactRate = actRate;
       }
     }
   };
