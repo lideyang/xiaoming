@@ -52,45 +52,45 @@
         </flexbox-item>
       </flexbox>
       <!--<flexbox>-->
-        <!--<flexbox-item>-->
-          <!--<div class="name">真实率利：</div>-->
-        <!--</flexbox-item>-->
-        <!--<flexbox-item align="right">-->
-          <!--<div class="flex-demo">{{realRate}}%</div>-->
-        <!--</flexbox-item>-->
+      <!--<flexbox-item>-->
+      <!--<div class="name">真实率利：</div>-->
+      <!--</flexbox-item>-->
+      <!--<flexbox-item align="right">-->
+      <!--<div class="flex-demo">{{realRate}}%</div>-->
+      <!--</flexbox-item>-->
       <!--</flexbox>-->
       <!--<flexbox>-->
-        <!--<flexbox-item>-->
-          <!--<div class="name">总率利：</div>-->
-        <!--</flexbox-item>-->
-        <!--<flexbox-item align="right">-->
-          <!--<div class="flex-demo">{{totalRate}}%</div>-->
-        <!--</flexbox-item>-->
+      <!--<flexbox-item>-->
+      <!--<div class="name">总率利：</div>-->
+      <!--</flexbox-item>-->
+      <!--<flexbox-item align="right">-->
+      <!--<div class="flex-demo">{{totalRate}}%</div>-->
+      <!--</flexbox-item>-->
       <!--</flexbox>-->
       <!--<flexbox>-->
-        <!--<flexbox-item>-->
-          <!--<div class="name">真实分期本金：</div>-->
-        <!--</flexbox-item>-->
-        <!--<flexbox-item align="right">-->
-          <!--<div class="flex-demo">{{realSplitAmount|formatCurrency}}元</div>-->
-        <!--</flexbox-item>-->
+      <!--<flexbox-item>-->
+      <!--<div class="name">真实分期本金：</div>-->
+      <!--</flexbox-item>-->
+      <!--<flexbox-item align="right">-->
+      <!--<div class="flex-demo">{{realSplitAmount|formatCurrency}}元</div>-->
+      <!--</flexbox-item>-->
       <!--</flexbox>-->
 
       <!--<flexbox>-->
-        <!--<flexbox-item>-->
-          <!--<div class="name">每月还款本金：</div>-->
-        <!--</flexbox-item>-->
-        <!--<flexbox-item align="right">-->
-          <!--<div class="flex-demo">{{monthRepayAmount|formatCurrency}}元</div>-->
-        <!--</flexbox-item>-->
+      <!--<flexbox-item>-->
+      <!--<div class="name">每月还款本金：</div>-->
+      <!--</flexbox-item>-->
+      <!--<flexbox-item align="right">-->
+      <!--<div class="flex-demo">{{monthRepayAmount|formatCurrency}}元</div>-->
+      <!--</flexbox-item>-->
       <!--</flexbox>-->
       <!--<flexbox>-->
-        <!--<flexbox-item>-->
-          <!--<div class="name">每月还款利息：</div>-->
-        <!--</flexbox-item>-->
-        <!--<flexbox-item align="right">-->
-          <!--<div class="flex-demo">{{monthRepayInterest|formatCurrency}}元</div>-->
-        <!--</flexbox-item>-->
+      <!--<flexbox-item>-->
+      <!--<div class="name">每月还款利息：</div>-->
+      <!--</flexbox-item>-->
+      <!--<flexbox-item align="right">-->
+      <!--<div class="flex-demo">{{monthRepayInterest|formatCurrency}}元</div>-->
+      <!--</flexbox-item>-->
       <!--</flexbox>-->
 
 
@@ -108,6 +108,14 @@
         </flexbox-item>
         <flexbox-item align="right">
           <div class="flex-demo"><span>{{firstMonthRepay|formatCurrency}}</span>元</div>
+        </flexbox-item>
+      </flexbox>
+      <flexbox>
+        <flexbox-item>
+          <div class="name">车损保额：</div>
+        </flexbox-item>
+        <flexbox-item align="right">
+          <div class="flex-demo"><span>{{cardInsured|formatCurrency}}</span>元</div>
         </flexbox-item>
       </flexbox>
       <!--<p class="disctext" style="text-align:center">以上结果仅供参考</p>-->
@@ -188,6 +196,9 @@
       },
       firstMonthRepay() {
         return this.totalRepay - this.monthRepay * this.month
+      },
+      cardInsured() {
+        return Math.ceil((this.splitAmount / 0.7 / 1.2) / 100) * 100
       }
     },
     methods: {},
