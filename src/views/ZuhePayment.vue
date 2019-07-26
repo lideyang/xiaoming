@@ -214,7 +214,7 @@
         return Math.ceil((this.splitAmount / 0.7 / 1.2) / 100) * 100
       },
       invoiceAmount() {
-        return this.splitAmount / 0.8
+        return Math.ceil(this.splitAmount / 0.8 / 1000) * 1000
       }
     },
     methods: {},
