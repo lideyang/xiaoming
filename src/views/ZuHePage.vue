@@ -9,7 +9,7 @@
       </x-input>
       <popup-picker :data="sloanYearsList" title="贷款期限:" v-model="sloanYear" style="text-align:left">
       </popup-picker>
-      <x-input title="利率:" placeholder="请输入贷款金额" v-model="rate">
+      <x-input title="利率:" placeholder="请输入贷款利率" v-model="rate">
         <span slot="right">%</span>
       </x-input>
       <x-button style="margin: 20px auto; width: 95%;" type="warn" @click.native="caculateLoan">开始计算</x-button>
