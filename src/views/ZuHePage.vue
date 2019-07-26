@@ -2,6 +2,8 @@
   <div class="main-layer">
     <x-header :left-options="{showBack: false}">车贷计算器</x-header>
     <group>
+      <popup-picker :data="vehicleList" title="车型:" v-model="vehicle" style="text-align:left">
+      </popup-picker>
       <x-input title="贷款金额:" placeholder="请输入贷款金额" v-model="sloanMoney">
         <span slot="right">元</span>
       </x-input>
@@ -33,13 +35,16 @@
         initalLoanYears.push(i + "年" + "(" + i * 12 + "期)")
       }
       this.sloanYearsList.push(initalLoanYears);
+      console.log(this.sloanYearsList)
     },
     data() {
       return {
         sloanMoney: storage.get('sloanMoney') || "",
         rate: storage.get('rate') || "",
         sloanYearsList: [],
-        sloanYear: storage.get('sloanYear') ? [storage.get('sloanYear')] : ["2年(24期)"],
+        sloanYear: storage.get('sloanYear') ? [storage.get('sloanYear')] : ["3年(36期)"],
+        vehicle: ['二手车'],
+        vehicleList: [['新车', '二手车']]
       };
     },
     watch: {
@@ -72,7 +77,8 @@
           query: {
             sloanMoney: this.sloanMoney,//商业贷款总额
             smonths: smonths,//商业贷款年限
-            rate: this.rate
+            rate: this.rate,
+            type: this.vehicle[0] === '二手车' ? 1 : 2
           }
         });
       }

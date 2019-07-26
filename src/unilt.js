@@ -1,7 +1,7 @@
 /**
  * Created by lidy on 2019/6/28.
  */
-export const formatCurrency = (num, flag = true) => {//保留两位小数
+export const formatCurrency = (num, flag = false) => {//保留两位小数
   let argNum = arguments.length;
   if (num == null || num == 0) {
     return flag ? "0.00" : "0";

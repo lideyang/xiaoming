@@ -110,12 +110,20 @@
           <div class="flex-demo"><span>{{firstMonthRepay|formatCurrency}}</span>元</div>
         </flexbox-item>
       </flexbox>
-      <flexbox>
+      <flexbox v-if="this.type===1">
         <flexbox-item>
           <div class="name">车损保额：</div>
         </flexbox-item>
         <flexbox-item align="right">
           <div class="flex-demo"><span>{{cardInsured|formatCurrency}}</span>元</div>
+        </flexbox-item>
+      </flexbox>
+      <flexbox v-if="this.type===2">
+        <flexbox-item>
+          <div class="name">发票金额：</div>
+        </flexbox-item>
+        <flexbox-item align="right">
+          <div class="flex-demo"><span>{{invoiceAmount|formatCurrency}}</span>元</div>
         </flexbox-item>
       </flexbox>
       <!--<p class="disctext" style="text-align:center">以上结果仅供参考</p>-->
@@ -141,14 +149,16 @@
         money: 0,
         month: 0,
         rate: 0,
+        type: 1,
         ringList: [],
         houseTotalPrice: ''
       }
     },
     created() {
-      this.money = Number(this.$route.query.sloanMoney);
-      this.month = Number(this.$route.query.smonths);
-      this.rate = Number(this.$route.query.rate);
+      this.money = Number(this.$route.query.sloanMoney)
+      this.month = Number(this.$route.query.smonths)
+      this.rate = Number(this.$route.query.rate)
+      this.type = Number(this.$route.query.type)
     },
     mounted() {
       // const totalArr = [{text: '贷款金额', color: '#2FC25B', val: (this.money / this.totalRepay)*100}, {
@@ -165,6 +175,9 @@
     },
     computed: {
       realRate() {
+        if (this.type === 2) {
+          return this.rate + (this.rate - 12) * .1
+        }
         return this.rate + (this.rate - 14.5) * .1
       },
       totalRate() {
@@ -199,6 +212,9 @@
       },
       cardInsured() {
         return Math.ceil((this.splitAmount / 0.7 / 1.2) / 100) * 100
+      },
+      invoiceAmount() {
+        return this.splitAmount / 0.8
       }
     },
     methods: {},
