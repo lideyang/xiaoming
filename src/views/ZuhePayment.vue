@@ -110,7 +110,7 @@
           <div class="flex-demo"><span>{{firstMonthRepay|formatCurrency}}</span>元</div>
         </flexbox-item>
       </flexbox>
-      <flexbox v-if="this.type===1">
+      <flexbox v-if="type===1">
         <flexbox-item>
           <div class="name">车损保额：</div>
         </flexbox-item>
@@ -118,7 +118,7 @@
           <div class="flex-demo"><span>{{cardInsured|formatCurrency}}</span>元</div>
         </flexbox-item>
       </flexbox>
-      <flexbox v-if="this.type===2">
+      <flexbox v-if="type===2">
         <flexbox-item>
           <div class="name">发票金额：</div>
         </flexbox-item>
@@ -159,6 +159,7 @@
       this.month = Number(this.$route.query.smonths)
       this.rate = Number(this.$route.query.rate)
       this.type = Number(this.$route.query.type)
+      console.log(this.$route.query.jx)
     },
     mounted() {
       // const totalArr = [{text: '贷款金额', color: '#2FC25B', val: (this.money / this.totalRepay)*100}, {
@@ -175,10 +176,18 @@
     },
     computed: {
       realRate() {
-        if (this.type === 2) {
-          return this.rate + (this.rate - 12) * .1
+        console.log(this.$route.query.jx)
+        if (this.$route.query.jx) {//加权重
+          if (this.type === 2) {
+            return (this.rate + 0.3) + (this.rate + 0.3 - 12) * .1
+          }
+          return (this.rate + 0.5) + (this.rate + 0.5 - 14.5) * .1
+        } else {
+          if (this.type === 2) {
+            return this.rate + (this.rate - 12) * .1
+          }
+          return this.rate + (this.rate - 14.5) * .1
         }
-        return this.rate + (this.rate - 14.5) * .1
       },
       totalRate() {
         return 1 + this.realRate * .01

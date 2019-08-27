@@ -20,6 +20,12 @@ export default new Router({
     meta: {keepAlive: true}
   },
     {
+      path: '/jx',
+      name: 'FramePage',
+      component: framePage,
+      meta: {keepAlive: true}
+    },
+    {
       path: '/ZuhePayment',
       name: 'ZuhePayment',
       component: ZuhePayment

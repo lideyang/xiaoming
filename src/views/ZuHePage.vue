@@ -35,7 +35,6 @@
         initalLoanYears.push(i + "年" + "(" + i * 12 + "期)")
       }
       this.sloanYearsList.push(initalLoanYears);
-      console.log(this.sloanYearsList)
     },
     data() {
       return {
@@ -58,16 +57,7 @@
         storage.set('sloanYear', value)
       }
     },
-    computed: {
-      syears() {
-        const month = this.sloanYear[0].match(/\((\S*)\)/);
-        return parseInt(month[1].substr(0, month[1].length - 1) / 12);
-      },
-      gyears() {
-        const month = this.gloanYear[0].match(/\((\S*)\)/);
-        return parseInt(month[1].substr(0, month[1].length - 1) / 12);
-      }
-    },
+    computed: {},
     methods: {
       caculateLoan() {
         let smonth = this.sloanYear[0].match(/\((\S*)\)/);
@@ -78,7 +68,8 @@
             sloanMoney: this.sloanMoney,//商业贷款总额
             smonths: smonths,//商业贷款年限
             rate: this.rate,
-            type: this.vehicle[0] === '二手车' ? 1 : 2
+            type: this.vehicle[0] === '二手车' ? 1 : 2,
+            jx: this.$route.fullPath === '/jx' ? true : false
           }
         });
       }
