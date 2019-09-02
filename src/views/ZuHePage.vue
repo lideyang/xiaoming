@@ -68,8 +68,8 @@
             sloanMoney: this.sloanMoney,//商业贷款总额
             smonths: smonths,//商业贷款年限
             rate: this.rate,
-            type: this.vehicle[0] === '二手车' ? 1 : 2,
-            jx: this.$route.fullPath === '/jx' ? true : false
+            type: this.vehicle[0] === '二手车' ? "1" : "2",
+            jx: this.$route.fullPath === '/jx' ? "1" : ""
           }
         });
       }

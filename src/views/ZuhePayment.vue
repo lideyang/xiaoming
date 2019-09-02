@@ -157,9 +157,17 @@
     created() {
       this.money = Number(this.$route.query.sloanMoney)
       this.month = Number(this.$route.query.smonths)
-      this.rate = Number(this.$route.query.rate)
       this.type = Number(this.$route.query.type)
-      console.log(this.$route.query.jx)
+      let rate = Number(this.$route.query.rate)
+      let jx = Boolean(this.$route.query.jx)
+      if (jx) {//判断jx权重
+        if (this.type === 2) {//新车
+          rate += 0.3
+        } else {//二手车
+          rate += 0.4
+        }
+      }
+      this.rate = rate
     },
     mounted() {
       // const totalArr = [{text: '贷款金额', color: '#2FC25B', val: (this.money / this.totalRepay)*100}, {
@@ -176,24 +184,18 @@
     },
     computed: {
       realRate() {
-        console.log(this.$route.query.jx)
-        if (this.$route.query.jx) {//加权重
-          if (this.type === 2) {
-            return (this.rate + 0.3) + (this.rate + 0.3 - 12) * .1
-          }
-          return (this.rate + 0.5) + (this.rate + 0.5 - 14.5) * .1
-        } else {
-          if (this.type === 2) {
-            return this.rate + (this.rate - 12) * .1
-          }
-          return this.rate + (this.rate - 14.5) * .1
-        }
+        let constant = this.type === 2 ? 12 : 14.5
+        let base = this.month === 24 ? 3 : 0
+        return this.rate + (this.rate - constant + base) * .1
       },
       totalRate() {
+        console.log(this.realRate)
         return 1 + this.realRate * .01
       },
       realSplitAmount() {
-        return (this.money * this.totalRate / 1.09).toFixed(2)
+        let base = this.month === 24 ? 0.03 : 0
+        console.log((this.money * this.totalRate / (1.09 - base)).toFixed(2))
+        return (this.money * this.totalRate / (1.09 - base)).toFixed(2)
       },
       splitAmount() {
         return Math.ceil(this.realSplitAmount / 100) * 100
@@ -205,7 +207,8 @@
         return Math.floor(this.bankCost / this.month)
       },
       totalRepay() {
-        return (this.splitAmount * 1.09).toFixed(2)
+        let base = this.month === 24 ? 0.03 : 0
+        return (this.splitAmount * (1.09 - base)).toFixed(2)
       },
       bankCost() {
         return this.totalRepay - this.splitAmount
