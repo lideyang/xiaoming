@@ -161,11 +161,12 @@
       let rate = Number(this.$route.query.rate)
       let jx = Boolean(this.$route.query.jx)
       if (jx) {//判断jx权重
-        if (this.type === 2) {//新车
-          rate += 0.3
-        } else {//二手车
-          rate += 0.4
-        }
+
+      }
+      if (this.type === 2) {//新车
+        rate += 0.3
+      } else {//二手车
+        rate += 0.4
       }
       this.rate = rate
     },
