@@ -1,38 +1,59 @@
-.main-layer{
-  .vux-header{
+.main-layer {
+  .vux-header {
     background-color: #e64340;
-    .vux-header-back{
-      color:#fff;
+
+    &.is-new {
+      background-color: #1AAD19;
     }
-    .left-arrow:before{
-      border-color: #fff!important;
+
+    .vux-header-back {
+      color: #fff;
+    }
+
+    .left-arrow:before {
+      border-color: #fff !important;
     }
   }
 }
 
-.outerLayerDiv{
-  .content{
-    margin:20px auto;
-    width:80%;
-  }
-  .vux-flex-row{
-    margin:0 0 10px;
-    .name{
-      position: relative;
-      color:#333;
-      font-size: 16px;
-      span{
-        position: absolute;
-        width:7px;
-        height: 16px;
-        left:-12px;
-        top:5px;
+.outerLayerDiv {
+  .content {
+    margin: 20px auto;
+    width: 80%;
+
+    &.is-new {
+      .vux-flex-row {
+        .flex-demo {
+          span {
+            color: #1AAD19;
+          }
+        }
       }
     }
-    .flex-demo{
-      color:#999;
-      span{
-        color:#ff6b00;
+  }
+
+  .vux-flex-row {
+    margin: 0 0 10px;
+
+    .name {
+      position: relative;
+      color: #333;
+      font-size: 16px;
+
+      span {
+        position: absolute;
+        width: 7px;
+        height: 16px;
+        left: -12px;
+        top: 5px;
+      }
+    }
+
+    .flex-demo {
+      color: #999;
+
+      span {
+        color: #ff6b00;
         font-weight: bold;
       }
     }
@@ -53,32 +74,39 @@
   color: #b3b6be;
   text-align: center;
   list-style: none;
+
   span {
     display: block;
     float: left;
   }
+
   span:nth-child(1) {
     margin-right: 10px;
-    width:10px;
-    height:5px;
+    width: 10px;
+    height: 5px;
   }
+
   // 利率
   .interestrate {
     width: 65px;
   }
+
   // 百分号
   .sign {
     margin-left: 10px;
     color: #b3b6be;
   }
+
   span:nth-child(3) {
     color: #b3b6be;
     margin-left: 5px;
     margin-right: 10px;
   }
+
   span:nth-child(4) {
     color: #000000;
   }
+
   span:nth-child(5) {
     margin-left: 10px;
   }

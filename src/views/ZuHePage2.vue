@@ -1,18 +1,21 @@
 <template>
   <div class="main-layer">
-    <x-header :left-options="{showBack: false}">车贷计算器</x-header>
+    <x-header class="is-new" :left-options="{showBack: false}">车贷计算器</x-header>
     <group>
       <popup-picker :data="vehicleList" title="车型:" v-model="vehicle" style="text-align:left">
       </popup-picker>
+      <x-input title="车价:" placeholder="请输入车辆价格" v-model="cartMoney">
+        <span slot="right">元</span>
+      </x-input>
       <x-input title="贷款金额:" placeholder="请输入贷款金额" v-model="sloanMoney">
         <span slot="right">元</span>
       </x-input>
-      <popup-picker :data="sloanYearsList" title="贷款期限:" v-model="sloanYear" style="text-align:left">
-      </popup-picker>
       <x-input title="利率:" placeholder="请输入贷款利率" v-model="rate">
         <span slot="right">%</span>
       </x-input>
-      <x-button style="margin: 20px auto; width: 95%;" type="warn" @click.native="caculateLoan">开始计算</x-button>
+      <x-button style="margin: 20px auto; width: 95%;" type="primary" @click.native="caculateLoan">
+        开始计算
+      </x-button>
     </group>
   </div>
 </template>
@@ -38,6 +41,7 @@
         },
         data() {
             return {
+                cartMoney: storage.get('cartMoney') || "",
                 sloanMoney: storage.get('sloanMoney') || "",
                 rate: storage.get('rate') || "",
                 sloanYearsList: [],
@@ -47,6 +51,9 @@
             };
         },
         watch: {
+            cartMoney(value) {
+                storage.set('cartMoney', value)
+            },
             sloanMoney(value) {
                 storage.set('sloanMoney', value)
             },
@@ -63,10 +70,11 @@
                 let smonth = this.sloanYear[0].match(/\((\S*)\)/);
                 let smonths = smonth[1].substr(0, smonth[1].length - 1);
                 this.$router.push({
-                    path: "/ZuhePayment",
+                    path: "/ZuhePayment2",
                     query: {
+                        cartMoney: this.cartMoney,//车价
                         sloanMoney: this.sloanMoney,//商业贷款总额
-                        smonths: smonths,//商业贷款年限
+                        smonths: 36,//商业贷款年限
                         rate: this.rate,
                         type: this.vehicle[0] === '二手车' ? "1" : "2",
                         jx: this.$route.fullPath === '/jx' ? "1" : ""
