@@ -149,7 +149,7 @@
       this.money = Number(this.$route.query.sloanMoney)
       this.month = Number(this.$route.query.smonths)
       this.type = Number(this.$route.query.type)
-      this.rate = Number(this.$route.query.rate)
+      this.rate = Number(this.$route.query.rate)+0.3
     },
     mounted() {
 
@@ -220,7 +220,7 @@
         return parseInt(this.splitAmount / this.month) + parseInt(this.bankCost / this.month)
       },
       firstMonthRepay() {
-        return Number((this.totalRepay - numMulti(this.monthRepay ,(this.month - 1))).toFixed(2))
+        return Number((this.totalRepay - this.monthRepay * (this.month - 1)).toFixed(2))
       },
       cardInsured() {
         return Math.ceil((this.splitAmount / 0.7 / 1.2) / 100) * 100
